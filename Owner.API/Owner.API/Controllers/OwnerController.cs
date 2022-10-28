@@ -49,7 +49,7 @@ namespace Owner.API.Controllers
         [Route("all")]
         [HttpGet]
 
-        public IActionResult  GetOwner()
+        public IActionResult  GetOwner()                                  //get all owners
         {
             var ownerList = OwnerList.OrderBy(x => x.Id).ToList<OwnerModel>();
             return Ok( ownerList);
@@ -60,7 +60,7 @@ namespace Owner.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OwnerModel))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [HttpPost]
-        [Consumes("application/json")]
+        [Consumes("application/json")]                                 //only excepts application/json
 
 
         public IActionResult AddOwner(OwnerModel model)
@@ -68,7 +68,7 @@ namespace Owner.API.Controllers
             var ownerList = new List<OwnerModel>();
             ownerList.Add(model);
 
-            if (ownerList.Any(e => e.Comment.Contains("hack")))
+            if (ownerList.Any(e => e.Comment.Contains("hack")))       //if comment includes "hack" return bad request
             return BadRequest();
             else       
             return Ok(ownerList);
@@ -82,7 +82,7 @@ namespace Owner.API.Controllers
         {
 
             var ownerList = OwnerList.OrderBy(x => x.Id).ToList<OwnerModel>();
-            var ownerModel = ownerList.FirstOrDefault(x => x.Id == id);
+            var ownerModel = ownerList.FirstOrDefault(x => x.Id == id);              //delete by id
             if (ownerModel == null)
             return NotFound("Try again");
             ownerList.Remove(ownerModel);
